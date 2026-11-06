@@ -1,0 +1,69 @@
+{
+  "name": "logtail",
+  "displayName": "Logtail",
+  "description": "Stream command output into live VS Code editor tabs",
+  "version": "0.1.0",
+  "publisher": "cemoka",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cemtopkaya/logtail.git"
+  },
+  "license": "MIT",
+  "main": "./extension.js",
+  "activationEvents": [
+    "onCommand:logtail.start",
+    "onCommand:logtail.stop"
+  ],
+  "scripts": {
+    "check": "node --check extension.js"
+  },
+  "dependencies": {
+    "shell-quote": "^1.8.2"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "logtail.start",
+        "title": "Logtail: Start Log Stream",
+        "icon": "$(play)"
+      },
+      {
+        "command": "logtail.stop",
+        "title": "Logtail: Stop Current Stream",
+        "icon": "$(debug-stop)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "logtail.stop",
+          "when": "resourceScheme == logtail",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Logtail",
+      "properties": {
+        "logtail.maxBufferChars": {
+          "type": "number",
+          "default": 2000000,
+          "minimum": 10000,
+          "description": "Maximum number of characters retained per log session."
+        },
+        "logtail.refreshInterval": {
+          "type": "number",
+          "default": 100,
+          "minimum": 50,
+          "description": "Editor refresh interval in milliseconds."
+        }
+      }
+    }
+  }
+}
